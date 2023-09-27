@@ -22,7 +22,6 @@ const getShopData = async (url: string, shopName: string) => {
     const maxListingPrice: string = $max('.responsive-listing-grid > div:first').find('span.currency-value:first').text();
     const minListingPrice: string = $min('.responsive-listing-grid > div:first').find('span.currency-value:first').text();
 
-
     const shopData: ShopData = {
         name: shopName,
         url: `${url}shop/${shopName}`,
@@ -34,7 +33,6 @@ const getShopData = async (url: string, shopName: string) => {
         minListingPrice
     };
 
-    // console.log(shopData)
     return shopData;
 }
 

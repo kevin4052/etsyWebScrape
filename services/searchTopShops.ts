@@ -1,9 +1,12 @@
 import * as cheerio from "cheerio";
+import * as cliProgress from 'cli-progress';
 import { getSearchPageHTML } from "./etsy";
 
 const getSearchTopShops = async (url: string, searchTerm: string) => {
     let shopList: string[] = [];
     let pageNumber: number = 1;
+    const barGettingShopList = new cliProgress.SingleBar({}, cliProgress.Presets.legacy);
+    barGettingShopList.start(50, 0);
 
     while (shopList.length < 50 && pageNumber <= 20) {
         const searchResults = await getSearchPageHTML(url, searchTerm, pageNumber);
@@ -17,16 +20,17 @@ const getSearchTopShops = async (url: string, searchTerm: string) => {
                 .prev()
                 .text();
 
-            if (reviews.includes("k") && shopList.indexOf(shopName) === -1) {
+            if (reviews.includes("k")) {
                 shopList.push(shopName);
             }
         });
 
         pageNumber += 1;
-        console.log(shopList.length)
+        barGettingShopList.update(shopList.length);
     }
 
-    return shopList;
+    barGettingShopList.stop();
+    return [...new Set(shopList)];
 }
 
 

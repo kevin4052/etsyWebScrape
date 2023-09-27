@@ -54,6 +54,7 @@ build/Release
 
 node_modules/
 jspm_packages/
+package-lock.json
 
 # Snowpack dependency directory (https://snowpack.dev/)
 
@@ -173,5 +174,4 @@ dist
 
 # Finder (MacOS) folder config
 .DS_Store
-
 shopData.json
